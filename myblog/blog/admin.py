@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Post
+from .models import Post, Comment
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
@@ -11,3 +11,9 @@ class PostAdmin(admin.ModelAdmin):
     raw_id_fields = ["author"]  # Теперь поле не выпадающим списком, а простым вводом
     date_hierarchy = "publish"  # Навигационные ссылки
     ordering = ["status", "publish"]  # Сортировка по умолчанию
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ["name", "email", "post", "created", "active"]
+    list_filter = ["active", "created", "updated"]
+    search_fields = ["name", "email", "body"]
